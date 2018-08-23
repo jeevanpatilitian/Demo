@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Hello Word"
-                sh 'mvn clean install'
+                sh 'mvn -f demo/pom.xml clean install'
             }
         }
     }
