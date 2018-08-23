@@ -15,7 +15,7 @@ pipeline {
                     // maven build - plugin auto deploys the build artifact to the specifid repo
                     def rtMaven = Artifactory.newMavenBuild()
                     rtMaven.tool = 'm2'
-		    rtMaven.run pom: 'pom.xml', goals: 'clean install ' buildInfo: buildInfo
+		    rtMaven.run pom: 'pom.xml', goals: 'clean install '
 	               }
             }
         }
