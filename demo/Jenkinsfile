@@ -1,4 +1,9 @@
 pipeline {
+    environment {
+        def artifactory = Artifactory.server('artifactory')
+        def artifactoryMaven = Artifactory.newMavenBuild()
+        def buildInfo
+    }
     agent {
         docker  {
             image 'javasbapp'
@@ -12,9 +17,7 @@ pipeline {
             echo "Hello Word"
             sh 'java -version'
             sh 'curl -v http://34.207.127.202:8081/artifactory'
-        def artifactory = Artifactory.server('artifactory')
-        def artifactoryMaven = Artifactory.newMavenBuild()
-        def buildInfo
+        
         rtMaven.tool = 'm2' // Tool name from Jenkins configuration
         rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: artifactory
         rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: artifactory
