@@ -1,5 +1,10 @@
 node {
-    
+    agent {
+        docker  {
+            image 'javasbapp'
+            args '-v $HOME/.m2:/root/.m2'
+        }
+    }
     def artifactory = Artifactory.server('artifactory')
     def artifactoryMaven = Artifactory.newMavenBuild()
     def buildInfo
