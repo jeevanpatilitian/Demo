@@ -12,7 +12,7 @@ pipeline {
                 sh 'java -version'
 				sh 'curl -v http://34.207.127.202:8081/artifactory'
                 sh 'mvn -f demo/pom.xml clean install'
-                curl -u admin:admin -T /root/.m2/repository/com/example/demo/0.0.1-SNAPSHOT/demo-0.0.1-SNAPSHOT.jar "http://localhost:8081/artifactory/libs-release-local/domo/"
+                curl -u admin:admin -T /root/.m2/repository/com/example/demo/0.0.1-SNAPSHOT/demo-0.0.1-SNAPSHOT.jar "http://34.207.127.202:8081/artifactory/libs-release-local/domo/"
 					
 				}
             }
