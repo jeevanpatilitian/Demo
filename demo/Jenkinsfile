@@ -1,6 +1,6 @@
 node {
     
-	def artifactory = Artifactory.server('artifactory')
+    def artifactory = Artifactory.server('artifactory')
     def artifactoryMaven = Artifactory.newMavenBuild()
     def buildInfo
 
@@ -9,7 +9,7 @@ node {
     }
 
     stage ('Artifactory configuration') {
-        rtMaven.tool = "m3" // Tool name from Jenkins configuration
+        rtMaven.tool = 'm2' // Tool name from Jenkins configuration
         rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: artifactory
         rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: artifactory
         buildInfo = Artifactory.newBuildInfo()
