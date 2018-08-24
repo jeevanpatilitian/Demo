@@ -5,26 +5,24 @@ pipeline {
             args '-v $HOME/.m2:/root/.m2'
         }
     }
-    def artifactory = Artifactory.server('artifactory')
-    def artifactoryMaven = Artifactory.newMavenBuild()
-    def buildInfo
-
-    stage ('Clone') {
-        git url: 'https://github.com/jeevanpatilitian/Demo.git'
-    }
-
+    
+    stages{
     stage ('Artifactory configuration') {
+        steps{
+            echo "Hello Word"
+            sh 'java -version'
+            sh 'curl -v http://34.207.127.202:8081/artifactory'
+        def artifactory = Artifactory.server('artifactory')
+        def artifactoryMaven = Artifactory.newMavenBuild()
+        def buildInfo
         rtMaven.tool = 'm2' // Tool name from Jenkins configuration
         rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: artifactory
         rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: artifactory
         buildInfo = Artifactory.newBuildInfo()
-    }
-
-    stage ('Exec Maven') {
         rtMaven.run pom: 'demo/pom.xml', goals: 'clean install', buildInfo: buildInfo
-    }
-
-    stage ('Publish build info') {
         server.publishBuildInfo buildInfo
+        }
     }
+    }
+    
 }
