@@ -18,6 +18,7 @@ pipeline {
                     rtMaven.tool = 'm2'
                     rtMaven.run pom: 'demo/pom.xml', goals: 'clean install '
                 //sh 'mvn -f demo/pom.xml clean install'
+                }
             }
         }
     }
